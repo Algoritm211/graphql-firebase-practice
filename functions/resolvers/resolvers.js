@@ -2,7 +2,7 @@ const admin = require('firebase-admin')
 
 const resolvers = {
   Query: {
-    contacts: () => {
+    getContacts: () => {
       return admin
         .firestore()
         .collection('contacts')

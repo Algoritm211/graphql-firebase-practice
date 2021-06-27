@@ -36,8 +36,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    contacts: [Contact]
-    posts: [Post]
+    getContacts: [Contact]
+    getPosts: [Post]
   }
 
   type Mutation {
