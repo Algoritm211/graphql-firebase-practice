@@ -1,10 +1,9 @@
 const functions = require('firebase-functions')
 const express = require('express')
-const admin = require('firebase-admin')
 const { ApolloServer } = require('apollo-server-express')
 const typeDefs = require('./typeDefs/typeDefs')
 const resolvers = require('./resolvers/resolvers')
-
+const admin = require('firebase-admin')
 const serviceAccount = require('./gql-practice-firebase.json')
 
 admin.initializeApp({

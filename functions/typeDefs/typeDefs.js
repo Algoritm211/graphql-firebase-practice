@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
   type Post {
-    id: Int
+    id: ID
     title: String
     body: String
     user: Contact
@@ -11,16 +11,37 @@ const typeDefs = gql`
   type Contact {
     favorite: Boolean
     first_name: String
-    id: String
+    id: ID
     last_name: String
     profile_pic: String
     url: String
     posts: [Post]
   }
-  
+
+  input ContactsInput {
+    favorite: Boolean
+    first_name: String!
+    id: ID
+    last_name: String!
+    profile_pic: String
+    url: String
+    posts: [PostInput]
+  }
+
+  input PostInput {
+    id: ID
+    title: String!
+    body: String!
+    user: ContactsInput!
+  }
+
   type Query {
     contacts: [Contact]
     posts: [Post]
+  }
+
+  type Mutation {
+    createContact(input: ContactsInput): Contact
   }
 `
 

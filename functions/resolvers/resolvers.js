@@ -1,3 +1,5 @@
+const admin = require('firebase-admin')
+
 const resolvers = {
   Query: {
     contacts: () => {
@@ -13,25 +15,24 @@ const resolvers = {
 
           const posts = await Promise.all(postsPromise)
 
-          console.log(posts)
           const result = {
             ...doc.data(),
             id: doc.id,
             posts: posts.map((doc) => doc.data()),
           }
-          // console.log(result)
           return result
         }))
     },
-    posts: () => {
-      return admin
+  },
+  Mutation: {
+    createContact: async (_, { input: contactObj }) => {
+      const collection = admin
         .firestore()
-        .collection('posts')
-        .get()
-        .then((data) => data.docs.map((doc) => {
-          const result = { ...doc.data(), id: doc.id }
-          return result
-        }))
+        .collection('contacts')
+
+      const newObj = await collection.add({ ...contactObj, posts: [] })
+      const data = await newObj.get().then((snap) => snap.data())
+      return data
     },
   },
 }
